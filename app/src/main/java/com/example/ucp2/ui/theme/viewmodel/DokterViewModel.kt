@@ -34,9 +34,33 @@ class DokterViewModel (
         return errorState.isValid()
     }
 
+    fun saveData(){
+        val currentEvent = uiState.dokterEvent
+
+        if (validateFields()) {
+            viewModelScope.launch {
+                try {
+                    repositoryDokter.insertDokter(currentEvent.toDokterEntity())
+                    uiState = uiState.copy(
+                        snackBarMessage = "Data Berhasil disimpan",
+                        dokterEvent = DokterEvent(),
+                        isEntryValid = FormErrorState()
+                    )
+                } catch (e: Exception) {
+                    uiState = uiState.copy(
+                        snackBarMessage = "Data Gagal disimpan"
+                    )
+                }
+            }
+        } else {
+            uiState = uiState.copy(
+                snackBarMessage = "Input tidak valid. Periksa kembali data Anda."
+            )
+        }
+    }
+
 
 }
-
 
 
 
