@@ -59,9 +59,25 @@ class DokterViewModel (
         }
     }
 
-
 }
 
+data class DokterEvent(
+    val id : String = "",
+    val nama : String = "",
+    val spesialis : String = "",
+    val klinik : String = "",
+    val nohp : String = "",
+    val jamKerja : String = ""
 
+)
+
+fun DokterEvent.toDokterEntity(): Dokter = Dokter(
+    id= id,
+    nama = nama,
+    spesialis = spesialis,
+    klinik = klinik,
+    nohp = nohp,
+    jamKerja = jamKerja,
+)
 
 
