@@ -27,7 +27,7 @@ class DokterViewModel (
             spesialis = if (event.spesialis.isNotEmpty()) null else "Spesialis tidak boleh kosong",
             klinik = if (event.klinik.isNotEmpty()) null else "Klinik tidak boleh kosong",
             nohp = if (event.nohp.isNotEmpty()) null else "No Hp tidak boleh kosong",
-            jamKerja = if (event.jamKerja.isNotEmpty()) null else "Jam Kerja tidak boleh kosong"
+            jamkerja = if (event.jamKerja.isNotEmpty()) null else "Jam Kerja tidak boleh kosong"
 
         )
         uiState = uiState.copy(isEntryValid = errorState)
@@ -79,5 +79,32 @@ fun DokterEvent.toDokterEntity(): Dokter = Dokter(
     nohp = nohp,
     jamKerja = jamKerja,
 )
+data class FormErrorState(
+    val id: String? = null,
+    val nama: String? = null,
+    val spesialis: String? = null,
+    val klinik: String? = null,
+    val nohp: String? = null,
+    val jamkerja: String? = null,
+) {
+    fun isValid(): Boolean {
+        return id == null
+                && nama == null
+                && spesialis == null
+                && klinik == null
+                && nohp == null
+                && jamkerja == null
+    }
+}
+
+data class DokterUIState(
+    val dokterEvent: DokterEvent = DokterEvent(),
+    val isEntryValid: FormErrorState = FormErrorState(),
+    val snackBarMessage: String? = null,
+)
+
+
+
+
 
 
