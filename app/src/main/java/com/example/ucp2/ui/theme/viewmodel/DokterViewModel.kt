@@ -6,11 +6,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp2.data.entity.Dokter
-import com.example.ucp2.repository.LocalRepositoryDokter
+import com.example.ucp2.repository.RepositoryDokter
 import kotlinx.coroutines.launch
 
 class DokterViewModel (
-    private val repositoryDokter: LocalRepositoryDokter
+    private val repositoryDokter: RepositoryDokter
 ) : ViewModel() {
     var uiState by mutableStateOf(DokterUIState())
 
@@ -57,6 +57,9 @@ class DokterViewModel (
                 snackBarMessage = "Input tidak valid. Periksa kembali data Anda."
             )
         }
+    }
+    fun resetSnackBarMessage(){
+        uiState = uiState.copy(snackBarMessage = null)
     }
 
 }
