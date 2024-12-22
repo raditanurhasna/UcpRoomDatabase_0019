@@ -58,6 +58,9 @@ class JadwalViewModel (
             )
         }
     }
+    fun resetSnackBarMessage(){
+        uiState = uiState.copy(snackBarMessage = null)
+    }
 
 }
 
