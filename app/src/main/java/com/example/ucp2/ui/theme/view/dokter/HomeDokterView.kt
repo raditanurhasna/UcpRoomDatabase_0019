@@ -158,4 +158,90 @@ fun ListDokter(
     }
 }
 
-
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CardDokter(
+    dokter: Dokter,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = { }
+){
+    Card (
+        onClick = onClick,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ){
+        Column (
+            modifier = Modifier.padding(8.dp)
+        ){
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.Person, contentDescription = "")
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = dokter.id,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp
+                )
+            }
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.DateRange, contentDescription = "" )
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = dokter.nama,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
+            }
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.Home, contentDescription = "")
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = dokter.spesialis,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.Home, contentDescription = "")
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = dokter.klinik,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.Home, contentDescription = "")
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = dokter.nohp,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(imageVector = Icons.Filled.Home, contentDescription = "")
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = dokter.jamKerja,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+        }
+    }
+}
