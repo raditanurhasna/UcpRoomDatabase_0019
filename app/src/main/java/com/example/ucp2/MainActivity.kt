@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ucp2.ui.theme.UCP2Theme
+import com.example.ucp2.ui.theme.navigation.PengelolaHalaman
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +21,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             UCP2Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                        PengelolaHalaman(
                         modifier = Modifier.padding(innerPadding)
-                    )
+
+                        )
+
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.example.roomlocaldb.ui.theme.viewmodel
+package com.example.ucp2.ui.theme.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

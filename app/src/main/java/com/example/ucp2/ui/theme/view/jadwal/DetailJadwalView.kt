@@ -31,28 +31,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.roomlocaldb.ui.theme.viewmodel.JadwalEvent
-import com.example.roomlocaldb.ui.theme.viewmodel.toJadwalEntity
 import com.example.ucp2.data.entity.Jadwal
-import com.example.ucp2.repository.RepositoryJadwal
 import com.example.ucp2.ui.theme.customewidget.TopAppBar
-import com.example.ucp2.ui.theme.navigation.DestinasiDetail
 import com.example.ucp2.ui.theme.viewmodel.DetailJadwalViewModel
 import com.example.ucp2.ui.theme.viewmodel.DetailUiState
 import com.example.ucp2.ui.theme.viewmodel.PenyediaViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
+import com.example.ucp2.ui.theme.viewmodel.toJadwalEntity
+
 
 @Composable
 fun DetailJadwalView(

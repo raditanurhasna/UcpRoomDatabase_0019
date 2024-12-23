@@ -8,13 +8,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -22,19 +23,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.roomlocaldb.ui.theme.viewmodel.DokterEvent
-import com.example.roomlocaldb.ui.theme.viewmodel.DokterUIState
-import com.example.roomlocaldb.ui.theme.viewmodel.DokterViewModel
-import com.example.roomlocaldb.ui.theme.viewmodel.FormErrorState
 import com.example.ucp2.ui.theme.customewidget.TopAppBar
 import com.example.ucp2.ui.theme.navigation.AlamatNavigasi
+import com.example.ucp2.ui.theme.viewmodel.DokterEvent
+import com.example.ucp2.ui.theme.viewmodel.DokterUIState
+import com.example.ucp2.ui.theme.viewmodel.DokterViewModel
+import com.example.ucp2.ui.theme.viewmodel.FormErrorState
 import com.example.ucp2.ui.theme.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
 
 object DestinasiInsert : AlamatNavigasi {
     override val route: String = "insert_dokter"
 }
-
 
 @Composable
 fun InsertDokterView(
@@ -48,7 +48,7 @@ fun InsertDokterView(
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(uiState.snackBarMessage) {
-        uiState.snackBarMessage?.let { message->
+        uiState.snackBarMessage?.let { message ->
             coroutineScope.launch {
                 snackbarHostState.showSnackbar(message)
                 viewModel.resetSnackBarMessage()
@@ -57,23 +57,22 @@ fun InsertDokterView(
     }
     Scaffold(
         modifier = modifier,
-        snackbarHost =  { SnackbarHost(hostState = snackbarHostState) }
-    ){ padding ->
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+    ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp)
-        ){
+        ) {
             TopAppBar(
                 onBack = onBack,
                 showBackButton = true,
                 judul = "Tambah Dokter"
-
             )
             InsertBodyDokter(
                 uiState = uiState,
-                onValueChange = { updatedEvent  ->
+                onValueChange = { updatedEvent ->
                     viewModel.updateState(updatedEvent)
                 },
                 onClick = {
@@ -84,12 +83,8 @@ fun InsertDokterView(
                 }
             )
         }
-
     }
 }
-
-
-
 
 @Composable
 fun FormDokter(
@@ -97,11 +92,13 @@ fun FormDokter(
     onValueChange: (DokterEvent) -> Unit = {},
     errorState: FormErrorState = FormErrorState(),
     modifier: Modifier = Modifier
-){
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val spesialisOptions = listOf("Umum", "Gigi", "THT", "Mata", "Kandungan")
 
     Column(
         modifier = modifier.fillMaxWidth()
-    ){
+    ) {
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = dokterEvent.id,
@@ -113,7 +110,7 @@ fun FormDokter(
             placeholder = { Text("Masukan ID") },
         )
         Text(
-            text = errorState.id?: "",
+            text = errorState.id ?: "",
             color = Color.Red
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -121,44 +118,67 @@ fun FormDokter(
             modifier = Modifier.fillMaxWidth(),
             value = dokterEvent.nama,
             onValueChange = {
-                onValueChange(dokterEvent.copy(nama= it))
+                onValueChange(dokterEvent.copy(nama = it))
             },
             label = { Text("Nama") },
             isError = errorState.nama != null,
             placeholder = { Text("Masukan Nama") },
         )
         Text(
-            text = errorState.nama?: "",
+            text = errorState.nama ?: "",
             color = Color.Red
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = dokterEvent.spesialis,
-            onValueChange = {
-                onValueChange(dokterEvent.copy(spesialis = it))
+            onValueChange = {},
+            label = { Text("Spesialis") },
+            readOnly = true,
+            isError = errorState.spesialis != null,
+            placeholder = { Text("Pilih Spesialis") },
+            trailingIcon = {
+                Text(
+                    text = "▼",
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .align(Alignment.CenterHorizontally)
+                )
             },
-            label = { Text("spesialis") },
-            isError = errorState.id != null,
-            placeholder = { Text("Masukan spesialis") },
+            onClick = { expanded = true }
         )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            spesialisOptions.forEach { option ->
+                DropdownMenuItem(
+                    onClick = {
+                        onValueChange(dokterEvent.copy(spesialis = option))
+                        expanded = false
+                    },
+                    text = { Text(option) }
+                )
+            }
+        }
         Text(
-            text = errorState.spesialis?: "",
+            text = errorState.spesialis ?: "",
             color = Color.Red
         )
         Spacer(modifier = Modifier.height(16.dp))
+
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = dokterEvent.klinik,
             onValueChange = {
                 onValueChange(dokterEvent.copy(klinik = it))
             },
-            label = { Text("klinik") },
-            isError = errorState.id != null,
-            placeholder = { Text("Masukan klinik") },
+            label = { Text("Klinik") },
+            isError = errorState.klinik != null,
+            placeholder = { Text("Masukan Klinik") },
         )
         Text(
-            text = errorState.klinik?: "",
+            text = errorState.klinik ?: "",
             color = Color.Red
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -168,12 +188,12 @@ fun FormDokter(
             onValueChange = {
                 onValueChange(dokterEvent.copy(nohp = it))
             },
-            label = { Text("nohp") },
-            isError = errorState.id != null,
-            placeholder = { Text("Masukan nohp") },
+            label = { Text("No HP") },
+            isError = errorState.nohp != null,
+            placeholder = { Text("Masukan No HP") },
         )
         Text(
-            text = errorState.nohp?: "",
+            text = errorState.nohp ?: "",
             color = Color.Red
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -183,33 +203,32 @@ fun FormDokter(
             onValueChange = {
                 onValueChange(dokterEvent.copy(jamKerja = it))
             },
-            label = { Text("jamkerja") },
-            isError = errorState.id != null,
+            label = { Text("Jam Kerja") },
+            isError = errorState.jamkerja != null,
             placeholder = { Text("Masukan Jam Kerja") },
         )
         Text(
-            text = errorState.jamkerja?: "",
+            text = errorState.jamkerja ?: "",
             color = Color.Red
         )
-
-
     }
-
 }
+
+
+
 
 @Composable
 fun InsertBodyDokter(
     modifier: Modifier = Modifier,
     onValueChange: (DokterEvent) -> Unit,
     uiState: DokterUIState,
-    onClick:() -> Unit
+    onClick: () -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-
-    ){
+    ) {
         FormDokter(
             dokterEvent = uiState.dokterEvent,
             onValueChange = onValueChange,
@@ -222,6 +241,30 @@ fun InsertBodyDokter(
         ) {
             Text("Simpan")
         }
-
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+fun OutlinedTextField(
+    modifier: Modifier,
+    value: String,
+    onValueChange: () -> Unit,
+    label: @Composable () -> Unit,
+    readOnly: Boolean,
+    isError: Boolean,
+    placeholder: @Composable () -> Unit,
+    trailingIcon: @Composable () -> Unit,
+    onClick: () -> Unit
+) {
+
 }

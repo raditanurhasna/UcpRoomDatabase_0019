@@ -1,4 +1,4 @@
-package com.example.roomlocaldb.ui.theme.view.mahasiswa
+package com.example.ucp2.ui.theme.view.jadwal
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

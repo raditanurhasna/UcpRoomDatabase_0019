@@ -114,7 +114,7 @@ fun BodyHomeDokterView(
                 contentAlignment = Alignment.Center
             ){
                 Text(
-                    text = "Tidak ada data mahasiswa.",
+                    text = "Tidak ada data dokter.",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(16.dp)

@@ -3,8 +3,6 @@ package com.example.ucp2.ui.theme.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.roomlocaldb.ui.theme.viewmodel.JadwalEvent
-import com.example.roomlocaldb.ui.theme.viewmodel.toJadwalEntity
 import com.example.ucp2.data.entity.Jadwal
 import com.example.ucp2.repository.RepositoryJadwal
 import com.example.ucp2.ui.theme.navigation.DestinasiDetail

@@ -7,8 +7,9 @@ import androidx.room.RoomDatabase
 import com.example.ucp2.data.DAO.DokterDao
 import com.example.ucp2.data.DAO.JadwalDao
 import com.example.ucp2.data.entity.Dokter
+import com.example.ucp2.data.entity.Jadwal
 
-@Database(entities = [Dokter::class], [JadwalDao::class], version = 1, exportSchema = false)
+@Database(entities = [Dokter::class,Jadwal::class], version = 1, exportSchema = false)
 abstract class DatabaseRs : RoomDatabase() {
 
     abstract fun DokterDao(): DokterDao

@@ -5,8 +5,6 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.roomlocaldb.ui.theme.viewmodel.DokterViewModel
-import com.example.roomlocaldb.ui.theme.viewmodel.JadwalViewModel
 import com.example.ucp2.RsApp
 
 object PenyediaViewModel {
@@ -48,6 +46,9 @@ object PenyediaViewModel {
 
     }
 
-    fun CreationExtras.RsApp(): RsApp =
-        (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as RsApp)
+    fun CreationExtras.RsApp(): RsApp {
+        val app = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]
+        require(app is RsApp) { "APPLICATION_KEY must hold an RsApp instance" }
+        return app as RsApp
+    }
 }

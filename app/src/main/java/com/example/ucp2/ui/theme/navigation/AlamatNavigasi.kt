@@ -10,7 +10,7 @@ object DestinasiHome : AlamatNavigasi {
 
 object DestinasiDetail : AlamatNavigasi {
     override val  route = "detail"
-    const val ID = "Id"
+    const val ID = "id"
     val routesWithArg = "$route/{$ID}"
 }
 
