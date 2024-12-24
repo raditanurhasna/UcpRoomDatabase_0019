@@ -255,16 +255,3 @@ fun InsertBodyDokter(
 
 
 
-fun OutlinedTextField(
-    modifier: Modifier,
-    value: String,
-    onValueChange: () -> Unit,
-    label: @Composable () -> Unit,
-    readOnly: Boolean,
-    isError: Boolean,
-    placeholder: @Composable () -> Unit,
-    trailingIcon: @Composable () -> Unit,
-    onClick: () -> Unit
-) {
-
-}
